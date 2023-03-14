@@ -24,13 +24,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewmodel.CreationExtras
-import androidx.work.Constraints
-import androidx.work.Data
-import androidx.work.ExistingWorkPolicy
-import androidx.work.OneTimeWorkRequest
-import androidx.work.OneTimeWorkRequestBuilder
-import androidx.work.WorkInfo
-import androidx.work.WorkManager
+import androidx.work.*
 import com.example.background.workers.BlurWorker
 import com.example.background.workers.CleanupWorker
 import com.example.background.workers.SaveImageToFileWorker
@@ -40,7 +34,8 @@ class BlurViewModel(application: Application) : ViewModel() {
     private var imageUri: Uri? = null
     internal var outputUri: Uri? = null
     private val workManager = WorkManager.getInstance(application)
-    internal val outputWorkInfos: LiveData<List<WorkInfo>> = workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
+    internal val outputWorkInfos: LiveData<List<WorkInfo>> =
+        workManager.getWorkInfosByTagLiveData(TAG_OUTPUT)
 
     init {
         // This transformation makes sure that whenever the current work Id changes the WorkInfo
@@ -133,7 +128,7 @@ class BlurViewModel(application: Application) : ViewModel() {
 
 class BlurViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
 
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T {
         return if (modelClass.isAssignableFrom(BlurViewModel::class.java)) {
             BlurViewModel(application) as T
         } else {
