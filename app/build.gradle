@@ -19,7 +19,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion versions.compileSdk
+    compileSdkVersion 33
     defaultConfig {
         applicationId "com.example.background"
         renderscriptTargetApi 11
@@ -29,13 +29,13 @@ android {
         }
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        minSdk 22
         // The following argument makes the Android Test Orchestrator run its
         // "pm clear" command after each test invocation. This command ensures
         // that the app's state is completely cleared between tests.
         testInstrumentationRunnerArguments clearPackageData: 'true'
 
-        minSdkVersion versions.minSdk
-        targetSdkVersion versions.targetSdk
+        targetSdk 33
         versionCode 1
         versionName "1.0"
     }
